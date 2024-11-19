@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="d6bda094-e0dd-487a-b3c3-5b0c38de826a" name="Dev2Die Mapping">
+      <data-sources db="da69ccdc-90c4-4b1b-bf73-bc97fdfb14eb" ddl="2889e635-642d-472a-ab72-bec7126794e2" />
+      <scope>
+        <node kind="schema" qname="983503200_20242_cd701g2" />
+      </scope>
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="2889e635-642d-472a-ab72-bec7126794e2" />
+          <option name="name" value="Dev2Die (DDL)" />
+          <option name="dbmsName" value="MARIADB" />
+          <option name="urls">
+            <array>
+              <option value="file://$PROJECT_DIR$/database" />
+            </array>
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+      </list>
+    </option>
+  </component>
+</project>
