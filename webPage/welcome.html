@@ -8,35 +8,44 @@
     <link rel="stylesheet" href="global.css">
 </head>
 <body>
-    <div class="header-container">
+    <header class="header-container">
         <p class="welcome-text">Bienvenido, Usuario</p>
-        <button class="logout-btn">Salir</button>
-    </div>
+        <button class="logout-btn" aria-label="Cerrar sesión">Salir</button>
+    </header>
 
-    <div class="container">
-        <div class="image-container">
-            <img src="../img/logo.png" alt="Imagen de bienvenida" class="welcome-image">
-        </div>
+    <main class="container">
+        <section class="image-container">
+            <img src="../img/logo.png" alt="Logotipo de bienvenida" class="welcome-image">
+        </section>
 
-        <div class="buttons-container">
-            <div class="button">
-                <button class="inventory-btn">Inventario</button>
-                <p class="button-description">
-                    Editar, modificar y <br>
-                    crear datos necesarios <br>
-                    de los implementos
-                </p>
+        <section class="content-buttons">
+            <div class="buttons-container">
+                <article class="button">
+                    <button class="inventory-btn" aria-label="Gestionar inventario">Inventario</button>
+                    <div class="btn-con">
+
+                        <img class="img-button" src="../img/btn_welcome.jpg" alt="Icono de inventario">
+                        <p class="button-description">
+                            Editar, modificar y <br>
+                            crear datos necesarios <br>
+                            de los implementos.
+                        </p>
+                    </div>
+                    </article>
+    
+                <article class="button">
+                    <button class="registry-btn" aria-label="Ver registro de implementos">Registro</button>
+                    <div class="btn-con">
+                        <img class="img-button" src="../img/btn_welcome.jpg" alt="Icono de registro">
+                        <p class="button-description">
+                            Ver el registro <br>
+                            extendido de los <br>
+                            implementos.
+                        </p>
+                    </div>
+                </article>
             </div>
-
-            <div class="button">
-                <button class="registry-btn">Registro</button>
-                <p class="button-description">
-                    Ver el registro <br>
-                    extendido de los <br>
-                    implementos
-                </p>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
 </body>
 </html>
