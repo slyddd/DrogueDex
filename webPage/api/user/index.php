@@ -6,7 +6,12 @@ header('access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Content-Type: application/json');
 
-$conn = (new DB())->connect();
+try {
+    $conn = (new DB())->connect();
+} catch (PDOException $e) {
+    echo 'Error: ' . $e->getMessage();
+    die();
+}
 
 // Def crud functions
 $method = $_SERVER['REQUEST_METHOD'];
@@ -24,7 +29,7 @@ switch ($method) {
 function getAllData($conn)
 {
     try {
-        $stmt = $conn->prepare('SHOW TABLES');
+        $stmt = $conn->prepare('SELECT * FROM usuarios');
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($data);
@@ -32,4 +37,3 @@ function getAllData($conn)
         echo 'Error: ' . $e->getMessage();
     }
 }
-?>
