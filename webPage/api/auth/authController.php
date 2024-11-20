@@ -66,6 +66,10 @@ class AuthController
                 throw new Exception(ERRORS::_NO_INFO_);
             }
 
+            if (count($data) > 5) {
+                throw new Exception(ERRORS::_NO_INFO_);
+            }
+
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 throw new Exception(ERRORS::_INVALID_EMAIL_);
             }

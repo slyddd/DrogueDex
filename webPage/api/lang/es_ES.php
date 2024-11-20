@@ -11,6 +11,7 @@ interface ERRORS
     const _INVALID_EMAIL_ = "Correo inválido";
     const _WRONG_PASSWORD_ = "Contraseña incorrecta";
     const _SHORT_PASSWORD_ = "La contraseña debe tener al menos 8 caracteres";
+    const _EXTRA_INFO_ = "Información extra";
 }
 
 interface RESPONSES
