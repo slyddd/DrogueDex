@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejo de Inventario</title>
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/inventario.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <p class="header-text">Manejo de Inventario</p>
+        </div>
+        <div class="header-right">
+            <button onclick="window.location.href='./welcome.html'" class="back-btn">Volver</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="inventory-table-container">
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ejemplos de filas de inventario -->
+                    <tr>
+                        <td>001</td>
+                        <td>Implemento A</td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Implemento B</td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Implemento C</td>
+                    </tr>
+                    <tr>
+                        <td>004</td>
+                        <td>Implemento D</td>
+                    </tr>
+                    <tr>
+                        <td>005</td>
+                        <td>Implemento E</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Contenedor a la derecha -->
+        <div class="right-container">
+            <button class="edit-btn">Editar</button>
+            <button class="add-btn">Agregar</button>
+        </div>
+    </div>
+
+</body>
+</html>
