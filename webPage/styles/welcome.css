@@ -33,7 +33,7 @@ body {
 .logout-btn {
     font-size: 14px;
     padding: 8px 16px;
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 5px;
