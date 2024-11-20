@@ -2,6 +2,7 @@
 
 require 'authModel.php';
 require 'authView.php';
+require __DIR__ . '/../rol/rolModel.php';
 
 class AuthController
 {
@@ -44,6 +45,16 @@ class AuthController
             }
 
             setcookie('session_id', session_id(), time() + (86400 * 30), "/");
+
+            unset($user[0]['contraseña']);
+            unset($user[0]['id']);
+            unset($user[0]['id_rol']);
+            unset($user[0]['fecha_creacion']);
+            unset($user[0]['estado']);
+            $rolModel = new RolModel();
+            $user[0]['rol'] = $rolModel->getRol($user[0]['id_rol'])[0]['nombre'];
+
+            setcookie('user', json_encode($user[0]), time() + (86400 * 30), "/");
 
             $this->view->render(message: RESPONSES::_SUCCESS_, status: 200);
         } catch (Exception $e) {

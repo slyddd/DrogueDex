@@ -1,18 +1,22 @@
 <?php
-require __DIR__ . '/../authController.php';
+require 'rolController.php';
 
 header('Access-Control-Allow-Origin: *');
 header('access-Control-Allow-Methods: POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Content-Type: application/json');
 
-$authController = new AuthController();
+$authController = new RolController();
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
-    case 'POST':
-        $authController->login(file_get_contents('php://input'));
+    case 'GET':
+        if (isset($_GET['id'])) {
+            $authController->getRol($_GET['id']);
+        } else {
+            $authController->getAllRoles();
+        }
         break;
     default:
         echo json_encode(['message' => ERRORS::_METHOD_NOT_SUPPORTED_]);
