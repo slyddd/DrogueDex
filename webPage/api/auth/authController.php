@@ -31,10 +31,7 @@ class LoginController
                 throw new Exception('User not found');
             }
 
-            $pass = $user[0]['contraseña'];
-            $newPass = $password;
-
-            if ($pass != $newPass) {
+            if (!password_verify($password, $user[0]['password'])) {
                 throw new Exception('Invalid password');
             }
 
