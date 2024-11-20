@@ -13,7 +13,11 @@ class AuthModel
 
     public function getUser(string $email): array|string
     {
-        $query = 'SELECT * FROM usuarios WHERE correo = "' . $email.'"';
+        $query = 'SELECT usuarios.nombre, apellido, correo, contraseña, rol.nombre AS rol
+                    FROM usuarios
+                    JOIN rol
+                    ON usuarios.id_rol = rol.id
+                    WHERE correo = "' . $email . '"';
 
         try {
             $stmt = $this->conn->prepare($query);

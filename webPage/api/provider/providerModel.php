@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../bin/db.php';
 
-class RolModel
+class ProviderModel
 {
     private ?PDO $conn;
 
@@ -10,9 +10,9 @@ class RolModel
         $this->conn = (new DB())->connect();
     }
 
-    public function getRoles(): array|string
+    public function getProviders(): array|string
     {
-        $query = 'SELECT * FROM rol';
+        $query = 'SELECT * FROM proveedor';
 
         try {
             $stmt = $this->conn->prepare($query);

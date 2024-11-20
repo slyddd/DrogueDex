@@ -43,18 +43,6 @@ class AuthController
                 throw new Exception(ERRORS::_WRONG_PASSWORD_);
             }
 
-
-            unset($user[0]['contraseña']);
-            unset($user[0]['id']);
-            unset($user[0]['id_rol']);
-            unset($user[0]['fecha_creacion']);
-            unset($user[0]['fecha_registro']);
-            unset($user[0]['estado']);
-
-            $rol = file_get_contents('http://localhost:8080/api/rol?id=' . $user[0]['id_rol']);
-            $rol = json_decode($rol, true);
-
-            $user[0]['rol'] = $rol['response'][0]['nombre'];
             setcookie('user', json_encode($user[0]), time() + (86400 * 30), "/");
             setcookie('session_id', session_id(), time() + (86400 * 30), "/");
 
