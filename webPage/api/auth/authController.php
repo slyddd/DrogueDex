@@ -25,6 +25,10 @@ class AuthController
                 throw new Exception(ERRORS::_NO_INFO_);
             }
 
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new Exception(ERRORS::_INVALID_EMAIL_);
+            }
+
             $user = $this->model->getUser($email);
 
             if (is_string($user)) {
@@ -36,7 +40,7 @@ class AuthController
             }
 
             if (!password_verify($password, $user[0]['contraseña'])) {
-                throw new Exception(ERRORS::_INVALID_INFO_);
+                throw new Exception(ERRORS::_WRONG_PASSWORD_);
             }
 
             setcookie('session_id', session_id(), time() + (86400 * 30), "/");
@@ -59,6 +63,14 @@ class AuthController
 
             if (empty($name) | empty($lastName) | empty($email) | empty($password) | empty($role)) {
                 throw new Exception(ERRORS::_NO_INFO_);
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new Exception(ERRORS::_INVALID_EMAIL_);
+            }
+
+            if (strlen($password) < 8) {
+                throw new Exception(ERRORS::_SHORT_PASSWORD_);
             }
 
             $user = $this->model->getUser($email);

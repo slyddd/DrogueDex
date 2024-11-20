@@ -8,6 +8,9 @@ interface ERRORS
     const _METHOD_NOT_SUPPORTED_ = "Uso no soportado";
     const _DUPLICATED_INFO_ = "Información duplicada";
     const _GENERIC_ = "Hubo un error";
+    const _INVALID_EMAIL_ = "Correo inválido";
+    const _WRONG_PASSWORD_ = "Contraseña incorrecta";
+    const _SHORT_PASSWORD_ = "La contraseña debe tener al menos 8 caracteres";
 }
 
 interface RESPONSES
