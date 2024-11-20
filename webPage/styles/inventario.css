@@ -10,7 +10,7 @@ body {
 
 /* Modal */
 .modal {
-    display: none; /* Oculto por defecto */
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -25,11 +25,11 @@ body {
 
 /* Contenido del modal */
 .modal-content {
-    background-color: #1699e6; /* Fondo del modal */
+    background-color: #1699e6;
     padding: 2rem;
     border-radius: 10px;
     width: 80%;
-    max-width: 500px; /* Para pantallas grandes */
+    max-width: 500px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
     animation: scaleIn 0.3s ease-in-out;
@@ -39,7 +39,7 @@ body {
 .modal-content h2 {
     margin-bottom: 20px;
     color: white;
-    font-size: 1.5rem; /* Tamaño de fuente más adaptable */
+    font-size: 1.5rem;
 }
 
 /* Etiquetas de formulario */
@@ -49,7 +49,6 @@ body {
     text-align: left;
     font-weight: bold;
     color: white;
-    font-size: 1rem; /* Tamaño de fuente relativo */
 }
 
 /* Campos de entrada */
@@ -69,8 +68,8 @@ body {
     color: #d1d1d1;
 }
 
-/* Botón guardar */
-.save-btn {
+/* Botones */
+.add-btn, .save-btn, .back-btn {
     width: 100%;
     padding: 1rem;
     background-color: #000099;
@@ -82,12 +81,12 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.save-btn:hover {
+.add-btn:hover, .save-btn:hover, .back-btn:hover {
     background-color: #00bfff;
     transform: scale(1.05);
 }
 
-/* Botón de cerrar */
+/* Botón cerrar */
 .close-btn {
     position: absolute;
     top: 1rem;
@@ -141,7 +140,7 @@ header {
     padding: 2rem;
     margin-top: 60px;
     gap: 2rem;
-    flex-wrap: wrap; /* Permite que los elementos se acomoden mejor en pantallas pequeñas */
+    flex-wrap: wrap;
 }
 
 /* Tabla de inventario */
@@ -204,11 +203,31 @@ header {
     transform: scale(1.05);
 }
 
-/* Responsividad para dispositivos pequeños (móviles) */
+/* Botones Editar y Eliminar */
+.btn-editar, .btn-eliminar {
+    padding: 5px 10px;
+    background-color: #000099;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-editar:hover {
+    background-color: #00ffff;
+    transform: scale(1.05);
+}
+
+.btn-eliminar:hover {
+    background-color: #ff4d4d;
+    transform: scale(1.05);
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
     .inventory-table-container {
         flex: 1 1 100%;
-        margin-bottom: 2rem;
     }
 
     .right-container {
@@ -228,12 +247,11 @@ header {
         padding: 0.8rem;
     }
 
-    .save-btn {
+    .save-btn, .add-btn {
         font-size: 0.9rem;
     }
 }
 
-/* Responsividad para pantallas muy pequeñas (móviles en modo retrato) */
 @media (max-width: 480px) {
     header {
         flex-direction: column;
@@ -243,7 +261,6 @@ header {
 
     .container {
         flex-direction: column;
-        align-items: stretch;
         padding: 1rem;
     }
 
@@ -251,7 +268,7 @@ header {
         width: 100%;
     }
 
-    .save-btn {
+    .save-btn, .add-btn {
         font-size: 0.8rem;
     }
 

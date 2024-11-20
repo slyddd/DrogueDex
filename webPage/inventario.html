@@ -3,83 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manejo de Inventario</title>
-    <link rel="stylesheet" href="./styles/global.css">
+    <title>Gestión de Productos</title>
     <link rel="stylesheet" href="./styles/inventario.css">
+    <link rel="stylesheet" href="./styles/global.css">
 </head>
 <body>
-
     <header>
         <div class="header-left">
-            <p class="header-text">Manejo de Inventario</p>
+            <p>Gestión de Productos</p>
         </div>
         <div class="header-right">
-            <button onclick="window.location.href='./welcome.html'" class="back-btn">Volver</button>
+            <button class="back-btn" onclick="window.history.back()">Volver</button>
         </div>
     </header>
 
+    <!-- Contenedor principal -->
     <div class="container">
         <div class="inventory-table-container">
             <table class="inventory-table">
                 <thead>
                     <tr>
-                        <th>Código</th>
                         <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Stock</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Ejemplos de filas de inventario -->
-                    <tr>
-                        <td>001</td>
-                        <td>Implemento A</td>
-                    </tr>
-                    <tr>
-                        <td>002</td>
-                        <td>Implemento B</td>
-                    </tr>
-                    <tr>
-                        <td>003</td>
-                        <td>Implemento C</td>
-                    </tr>
-                    <tr>
-                        <td>004</td>
-                        <td>Implemento D</td>
-                    </tr>
-                    <tr>
-                        <td>005</td>
-                        <td>Implemento E</td>
-                    </tr>
+                <tbody id="productTable">
+                    <!-- Productos cargados dinámicamente -->
                 </tbody>
             </table>
         </div>
 
-        <!-- Contenedor a la derecha -->
         <div class="right-container">
-            <button class="edit-btn" onclick="openModal()">Editar</button>
-            <button class="add-btn">Agregar</button>
+            <button class="add-btn" onclick="openAddModal()">Agregar Producto</button>
         </div>
     </div>
 
-    <!-- Modal para Editar Producto -->
-    <div class="modal" id="editModal">
+    <!-- Modal de agregar/editar producto -->
+    <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Editar Producto</h2>
-            <form id="editForm">
-                <label for="productName">Nombre:</label>
-                <input type="text" id="productName" name="productName" placeholder="Nombre del producto">
+            <h2 id="modalTitle">Guardar Producto</h2>
+            <form id="productForm">
+                <label for="productName">Nombre del Producto</label>
+                <input type="text" id="productName" name="productName" placeholder="Ingrese el nombre del producto" required>
 
-                <label for="productType">Tipo:</label>
-                <input type="text" id="productType" name="productType" placeholder="Tipo del producto">
+                <label for="productType">Tipo</label>
+                <input type="text" id="productType" name="productType" placeholder="Ingrese el tipo del producto" required>
 
-                <label for="productStock">Stock:</label>
-                <input type="number" id="productStock" name="productStock" placeholder="Cantidad en stock">
+                <label for="productStock">Stock</label>
+                <input type="number" id="productStock" name="productStock" placeholder="Ingrese el stock del producto" required>
 
-                <button type="submit" class="save-btn">Guardar</button>
+                <button type="button" class="save-btn" onclick="saveProduct()">Guardar</button>
             </form>
         </div>
     </div>
 
-    <script src="./scripts/inventario.js"></script>
+    <script src="./scripts/app.js"></script>
 </body>
 </html>
