@@ -1,0 +1,117 @@
+
+  
+  /* Estilos generales para el cuerpo */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: linear-gradient(135deg, #1699e6, #00ffff);
+    background-size: cover;
+    height: 100vh;
+  }
+  
+  /* Contenedor principal */
+  .container {
+    width: 80%;
+    max-width: 1200px;
+    background-color: var(--foreground-color);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+  }
+  
+  /* Cabecera */
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  header h1 {
+    color: var(--primary-color);
+    font-size: 2rem;
+  }
+  
+  /* Sección de la tabla */
+  .table-section {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Tabla */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: var(--primary-color);
+    color: var(--foreground-color);
+    font-size: 1.2rem;
+  }
+  
+  td {
+    background-color: var(--foreground-color);
+    color: var(--tertiary-color);
+    font-size: 1rem;
+  }
+  
+  /* Estilo para el botón de volver */
+  .back-button-section {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .back-button {
+    padding: 10px 20px;
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: var(--secondary-color);
+  }
+  
+  /* Media Queries para adaptación a diferentes tamaños de pantalla */
+  
+  /* Teléfonos y pantallas pequeñas */
+  @media (max-width: 600px) {
+    table {
+      font-size: 14px;
+    }
+  
+    th, td {
+      padding: 10px;
+    }
+  }
+  
+  /* Tablets */
+  @media (max-width: 768px) {
+    table {
+      font-size: 16px;
+    }
+  
+    th, td {
+      padding: 12px;
+    }
+  }
+  

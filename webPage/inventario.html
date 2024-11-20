@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="./styles/inventario.css">
+    <link rel="stylesheet" href="./styles/global.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <p>Gestión de Productos</p>
+        </div>
+        <div class="header-right">
+            <button class="back-btn" onclick="window.history.back()">Volver</button>
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <div class="inventory-table-container">
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Stock</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="productTable">
+                    <!-- Productos cargados dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="right-container">
+            <button class="add-btn" onclick="openAddModal()">Agregar Producto</button>
+        </div>
+    </div>
+
+    <!-- Modal de agregar/editar producto -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Guardar Producto</h2>
+            <form id="productForm">
+                <label for="productName">Nombre del Producto</label>
+                <input type="text" id="productName" name="productName" placeholder="Ingrese el nombre del producto" required>
+
+                <label for="productType">Tipo</label>
+                <input type="text" id="productType" name="productType" placeholder="Ingrese el tipo del producto" required>
+
+                <label for="productStock">Stock</label>
+                <input type="number" id="productStock" name="productStock" placeholder="Ingrese el stock del producto" required>
+
+                <button type="button" class="save-btn" onclick="saveProduct()">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./scripts/app.js"></script>
+</body>
+</html>

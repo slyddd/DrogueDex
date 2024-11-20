@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Droguedex</title>
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="stylesheet" href="./styles/global.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-section">
+      <form action="register.php" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre" class="input-field" required>
+        <input type="text" name="apellido" placeholder="Apellido" class="input-field" required>
+        <input type="email" name="correo" placeholder="Correo" class="input-field" required>
+        <input type="password" name="contraseña" placeholder="Contraseña" class="input-field" required>
+        
+        <select name="rol" class="input-field" required>
+          <option value="Administrador">Administrador</option>
+          <option value="Usuario">Usuario</option>
+          <option value="Medico">Medico</option>
+          <option value="Paciente">Paciente</option>
+        </select>
+      
+        <button class="btn" type="submit">Crear Cuenta</button>
+      </form>
+    </div>
+    <div class="logo-section">
+      <img src="../img/logo.png" alt="Droguedex" class="logo">
+      <h1 class="logo-text">Droguedex</h1>
+    </div>
+  </div>
+</body>
+</html>
