@@ -1,14 +1,14 @@
 <?php
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
 class DB
 {
-    private $host;
-    private $user;
-    private $password;
-    private $database;
+    private String $host;
+    private String $user;
+    private String $password;
+    private String $database;
 
     public function __construct()
     {
@@ -21,15 +21,21 @@ class DB
         $this->database = $_ENV['DATABASE_DB'];
     }
 
-    public function connect()
+    public function connect(): ?PDO
     {
         $host = $this->host;
         $user = $this->user;
         $password = $this->password;
         $db = $this->database;
 
-        $conn = new PDO("mysql:host=$host;dbname=$db", $user, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $conn;
+        try {
+            $conn = new PDO("mysql:host=$host;dbname=$db", $user, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conn;
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+
+        return null;
     }
 }
