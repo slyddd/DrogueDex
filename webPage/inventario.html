@@ -86,6 +86,7 @@
     </div>
 
     <script>
+        // Función para guardar un producto
         function saveProduct() {
             const productName = document.getElementById('productName').value;
             const productDescription = document.getElementById('productDescription').value;
@@ -109,6 +110,8 @@
                 id_proveedor: productSupplier
             };
 
+            console.log('Enviando producto:', product); // Verificar qué datos estamos enviando
+
             // Enviar el producto a la API
             fetch('https://cienciadatos701.dcramirez.com/G2/api/product', {
                 method: 'POST',
@@ -119,10 +122,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert('Producto guardado exitosamente');
-                closeModal();
-                // Recargar la lista de productos si es necesario
-                loadProducts();
+                console.log('Respuesta de la API:', data); // Verificar la respuesta de la API
+                if (data.success) {
+                    alert('Producto guardado exitosamente');
+                    closeModal();
+                    loadProducts(); // Cargar productos después de guardar el nuevo producto
+                } else {
+                    alert('Hubo un problema al guardar el producto.');
+                }
             })
             .catch(error => {
                 console.error('Error al guardar el producto:', error);
@@ -130,31 +137,35 @@
             });
         }
 
+        // Cerrar el modal
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
         }
 
+        // Abrir el modal para agregar un producto
         function openAddModal() {
             document.getElementById('productModal').style.display = 'block';
         }
 
-        // Cargar los productos existentes (opcional)
+        // Cargar los productos existentes desde la API
         function loadProducts() {
             fetch('https://cienciadatos701.dcramirez.com/G2/api/products')
             .then(response => response.json())
             .then(data => {
                 const productTable = document.getElementById('productTable');
                 productTable.innerHTML = ''; // Limpiar la tabla
-                data.forEach(product => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${product.nombre}</td>
-                        <td>${product.descripcion}</td>
-                        <td>${product.stock}</td>
-                        <td><button onclick="deleteProduct(${product.id})">Eliminar</button></td>
-                    `;
-                    productTable.appendChild(row);
-                });
+                if (data && data.products) {
+                    data.products.forEach(product => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${product.nombre}</td>
+                            <td>${product.descripcion}</td>
+                            <td>${product.stock}</td>
+                            <td><button onclick="deleteProduct(${product.id})">Eliminar</button></td>
+                        `;
+                        productTable.appendChild(row);
+                    });
+                }
             })
             .catch(error => {
                 console.error('Error al cargar los productos:', error);
@@ -169,7 +180,7 @@
             .then(response => response.json())
             .then(data => {
                 alert('Producto eliminado exitosamente');
-                loadProducts();
+                loadProducts(); // Recargar los productos después de eliminar
             })
             .catch(error => {
                 console.error('Error al eliminar el producto:', error);
