@@ -13,7 +13,7 @@
             <p>Gestión de Productos</p>
         </div>
         <div class="header-right">
-            <button class="back-btn" onclick="window.history.back()">Volver</button>
+            <button class="back-btn" onclick="window.location.href='welcome.html'">Volver</button>
         </div>
     </header>
 
@@ -85,6 +85,100 @@
         </div>
     </div>
 
-    <script src="./scripts/app.js"></script>
+    <script>
+        function saveProduct() {
+            const productName = document.getElementById('productName').value;
+            const productDescription = document.getElementById('productDescription').value;
+            const productPrice = document.getElementById('productPrice').value;
+            const productStock = document.getElementById('productStock').value;
+            const productCategory = document.getElementById('productCategory').value;
+            const productSupplier = document.getElementById('productSupplier').value;
+
+            // Validación de los campos
+            if (!productName || !productDescription || !productPrice || !productStock || !productCategory || !productSupplier) {
+                alert('Por favor, complete todos los campos');
+                return;
+            }
+
+            const product = {
+                nombre: productName,
+                descripcion: productDescription,
+                precio: productPrice,
+                stock: productStock,
+                id_categoria: productCategory,
+                id_proveedor: productSupplier
+            };
+
+            // Enviar el producto a la API
+            fetch('https://cienciadatos701.dcramirez.com/G2/api/product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Producto guardado exitosamente');
+                closeModal();
+                // Recargar la lista de productos si es necesario
+                loadProducts();
+            })
+            .catch(error => {
+                console.error('Error al guardar el producto:', error);
+                alert('Hubo un problema al guardar el producto.');
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function openAddModal() {
+            document.getElementById('productModal').style.display = 'block';
+        }
+
+        // Cargar los productos existentes (opcional)
+        function loadProducts() {
+            fetch('https://cienciadatos701.dcramirez.com/G2/api/products')
+            .then(response => response.json())
+            .then(data => {
+                const productTable = document.getElementById('productTable');
+                productTable.innerHTML = ''; // Limpiar la tabla
+                data.forEach(product => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${product.nombre}</td>
+                        <td>${product.descripcion}</td>
+                        <td>${product.stock}</td>
+                        <td><button onclick="deleteProduct(${product.id})">Eliminar</button></td>
+                    `;
+                    productTable.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar los productos:', error);
+            });
+        }
+
+        // Eliminar un producto (opcional)
+        function deleteProduct(id) {
+            fetch(`https://cienciadatos701.dcramirez.com/G2/api/product/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Producto eliminado exitosamente');
+                loadProducts();
+            })
+            .catch(error => {
+                console.error('Error al eliminar el producto:', error);
+                alert('Hubo un problema al eliminar el producto.');
+            });
+        }
+
+        // Cargar los productos al inicio
+        loadProducts();
+    </script>
 </body>
 </html>
