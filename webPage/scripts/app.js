@@ -1,45 +1,30 @@
-// Función para abrir el modal de agregar producto
-function openAddModal() {
-    // Limpia los campos del formulario
-    document.getElementById("productForm").reset();
-    // Cambia el título del modal
-    document.getElementById("modalTitle").textContent = "Agregar Producto";
-    // Muestra el modal
-    document.getElementById("productModal").style.display = "block";
-}
-
-// Función para cerrar el modal
-function closeModal() {
-    document.getElementById("productModal").style.display = "none";
-}
-
 // Función para guardar el producto
 async function saveProduct() {
-    // Capturamos los datos del formulario
-    const productName = document.getElementById("productName").value.trim();
-    const productType = document.getElementById("productType").value.trim();
-    const productStock = document.getElementById("productStock").value.trim();
-    const idCategoria = 1;  // Este valor puede cambiar dependiendo de la categoría
-    const idProveedor = 1;  // Este valor puede cambiar dependiendo del proveedor
+    const productName = document.getElementById("productName").value;
+    const productDescription = document.getElementById("productDescription").value;
+    const productPrice = document.getElementById("productPrice").value;
+    const productStock = document.getElementById("productStock").value;
+    const productCategory = document.getElementById("productCategory").value;
+    const productSupplier = document.getElementById("productSupplier").value;
 
-    // Validación para asegurarse que los campos no estén vacíos
-    if (!productName || !productType || !productStock) {
+    // Verificar que todos los campos estén llenos
+    if (!productName || !productDescription || !productPrice || !productStock || !productCategory || !productSupplier) {
         alert("Por favor, complete todos los campos.");
         return;
     }
 
-    // Datos a enviar a la API
+    // Crear objeto con los datos del producto
     const productData = {
         nombre: productName,
-        descripcion: productType,  // Usamos productType como descripción
-        precio: 0,  // Asignamos un precio por defecto, ya que no hay campo para ello en el formulario
+        descripcion: productDescription,
+        precio: productPrice,
         stock: productStock,
-        id_categoria: idCategoria,
-        id_proveedor: idProveedor
+        id_categoria: productCategory,
+        id_proveedor: productSupplier
     };
 
     try {
-        // Enviamos los datos a la API usando fetch
+        // Enviar los datos a la API usando fetch
         const response = await fetch("https://cienciadatos701.dcramirez.com/G2/api/product", {
             method: "POST",
             headers: {
@@ -48,17 +33,75 @@ async function saveProduct() {
             body: JSON.stringify(productData)
         });
 
-        // Revisamos la respuesta de la API
-        const result = await response.json();
-        if (response.ok) {
-            alert("Producto agregado exitosamente.");
-            closeModal(); // Cierra el modal
-            // Aquí puedes agregar lógica para actualizar la tabla si es necesario
+        const data = await response.json();
+
+        // Verificar si la respuesta es exitosa
+        if (response.ok && data.status === 200) {
+            alert("Producto guardado exitosamente.");
+            closeModal(); // Cerrar el modal
+            loadProducts(); // Volver a cargar la lista de productos (si tienes esta función)
         } else {
-            alert(`Error al agregar producto: ${result.message}`);
+            alert("Error al guardar el producto.");
         }
     } catch (error) {
-        console.error("Error al conectar con la API", error);
-        alert("Error de red. No se pudo agregar el producto.");
+        console.error("Error al guardar el producto:", error);
+        alert("Hubo un problema al guardar el producto.");
     }
 }
+
+// Función para abrir el modal
+function openAddModal() {
+    const modal = document.getElementById("productModal");
+    modal.style.display = "block";  // Mostrar el modal
+}
+
+// Función para cerrar el modal
+function closeModal() {
+    const modal = document.getElementById("productModal");
+    modal.style.display = "none";  // Ocultar el modal
+}
+
+// Función para cargar los productos en la tabla
+async function loadProducts() {
+    try {
+        const response = await fetch("https://cienciadatos701.dcramirez.com/G2/api/products");
+        const productsData = await response.json();
+
+        const tableBody = document.getElementById("productTable");
+        tableBody.innerHTML = "";  // Limpiar la tabla antes de agregar productos
+
+        productsData.response.forEach(product => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = product.nombre;
+            row.appendChild(nameCell);
+
+            const categoryCell = document.createElement("td");
+            categoryCell.textContent = product.categoria;
+            row.appendChild(categoryCell);
+
+            const stockCell = document.createElement("td");
+            stockCell.textContent = product.stock;
+            row.appendChild(stockCell);
+
+            const actionCell = document.createElement("td");
+            const editButton = document.createElement("button");
+            editButton.textContent = "Editar";
+            // Aquí puedes agregar la lógica para editar el producto
+            actionCell.appendChild(editButton);
+            row.appendChild(actionCell);
+
+            tableBody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error("Error al cargar los productos:", error);
+        alert("Hubo un problema al cargar los productos.");
+    }
+}
+
+// Cargar productos al cargar la página
+window.onload = function() {
+    loadProducts();
+};
