@@ -66,6 +66,10 @@ class AuthController
                 throw new Exception(ERRORS::_NO_INFO_);
             }
 
+            if (!is_numeric($role)) {
+                throw new Exception(ERRORS::_INVALID_INFO_);
+            }
+
             if (count($data) > 5) {
                 throw new Exception(ERRORS::_NO_INFO_);
             }
@@ -92,11 +96,11 @@ class AuthController
 
             $response = $this->model->addUser($data);
 
-            if (str_contains($response, RESPONSES::_ERROR_)) {
-                throw new Exception($response);
+            if (!$response['ok']) {
+                throw new Exception($response['response']);
             }
 
-            $this->view->render(message: $response, status: 200);
+            $this->view->render(message: $response['response'], status: 200);
         } catch (Exception $e) {
             $this->view->render(message: RESPONSES::_ERROR_ . $e->getMessage(), status: 500);
         }

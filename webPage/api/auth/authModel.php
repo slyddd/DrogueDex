@@ -25,7 +25,7 @@ class AuthModel
 
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($data === false){
+            if ($data === false) {
                 throw new PDOException(ERRORS::_GENERIC_);
             }
 
@@ -35,7 +35,7 @@ class AuthModel
         }
     }
 
-    public function addUser(array $data): string
+    public function addUser(array $data): array
     {
         $query = "INSERT INTO usuarios (nombre, apellido, correo, contraseña, id_rol) VALUES (:nombre, :apellido, :correo, :password, :id_rol)";
 
@@ -48,9 +48,9 @@ class AuthModel
             $stmt->bindParam(':id_rol', $data['id_rol']);
             $stmt->execute();
 
-            return RESPONSES::_SUCCESS_;
+            return ['ok' => true, 'response' => RESPONSES::_SUCCESS_];
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return ['ok' => false, 'response' => $e->getMessage()];
         }
     }
 }

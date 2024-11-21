@@ -14,7 +14,7 @@ switch ($method) {
         $authController->register(file_get_contents('php://input'));
         break;
     default:
-        echo json_encode(['message' => 'Método no permitido']);
+        echo json_encode(['message' => ERRORS::_METHOD_NOT_SUPPORTED_]);
         break;
 }
 ?>
