@@ -64,11 +64,11 @@
 
         const result = await response.json(); // Procesar la respuesta del backend
 
-        if (response.ok) {
-          alert(result.message || 'Usuario registrado exitosamente.');
-          window.location.href = 'welcome.html'; // Redirigir a welcome.html si el registro fue exitoso
+        if (result.status === 200) {
+          alert(result.status || 'Usuario registrado exitosamente.');
+          // window.location.href = 'welcome.html'; // Redirigir a welcome.html si el registro fue exitoso
         } else {
-          alert(result.error || 'Ocurrió un error al registrar el usuario.');
+          alert(result.response + " " + JSON.stringify(FormData) || 'Ocurrió un error al registrar el usuario.');
         }
       } catch (error) {
         alert('Error de red: ' + error.message); // Manejar errores de red
