@@ -9,9 +9,9 @@
 </head>
 <body>
   <div class="container">
-    <div class="form-section">
-      <input type="email" id="correo" name="correo" placeholder="Correo" class="input-field" required>
-      <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" class="input-field" required>
+    <div class="form-section" >
+      <input type="email" id="email" name="email" placeholder="Correo" class="input-field" required>
+      <input type="password" id="password" name="password" placeholder="Contraseña" class="input-field" required>
       <button class="btn" id="loginButton">Iniciar Sesión</button>
       <span class="or-text">o</span>
       <a href="./login.html">Crear Cuenta</a>
@@ -25,19 +25,19 @@
   <script>
     document.getElementById('loginButton').addEventListener('click', async function() {
       // Obtener los valores de los campos
-      const correo = document.getElementById('correo').value.trim();
-      const contraseña = document.getElementById('contraseña').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
 
       // Verificar que los campos no estén vacíos
-      if (!correo || !contraseña) {
+      if (!email || !password) {
         alert("Por favor, ingresa tu correo y contraseña.");
         return;
       }
 
       // Crear el objeto con los datos a enviar
       const loginData = {
-        email: correo,
-        password: contraseña
+        email: email,
+        password: password
       };
 
       try {
