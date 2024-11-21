@@ -24,7 +24,7 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Tipo</th>
+                        <th>Categoría</th>
                         <th>Stock</th>
                         <th>Acción</th>
                     </tr>
@@ -62,11 +62,10 @@
                 <label for="productCategory">Categoría</label>
                 <select id="productCategory" name="productCategory" required>
                     <option value="">Seleccione una categoría</option>
-                    <option value="1">Categoría 1</option>
-                    <option value="2">Categoría 2</option>
-                    <option value="3">Categoría 3</option>
-                    <option value="4">Categoría 4</option>
-                    <option value="5">Categoría 5</option>
+                    <option value="1">Medicamentos</option>
+                    <option value="2">Equipos Médicos</option>
+                    <option value="3">Instrumental Quirúrgico</option>
+                    <option value="4">Material de Curación</option>
                 </select>
 
                 <!-- Select para proveedor -->
@@ -77,7 +76,6 @@
                     <option value="2">Proveedor 2</option>
                     <option value="3">Proveedor 3</option>
                     <option value="4">Proveedor 4</option>
-                    <option value="5">Proveedor 5</option>
                 </select>
 
                 <button type="button" class="save-btn" onclick="saveProduct()">Guardar</button>
@@ -154,12 +152,13 @@
             .then(data => {
                 const productTable = document.getElementById('productTable');
                 productTable.innerHTML = ''; // Limpiar la tabla
-                if (data && data.products) {
-                    data.products.forEach(product => {
+
+                if (data && data.response) {
+                    data.response.forEach(product => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${product.nombre}</td>
-                            <td>${product.descripcion}</td>
+                            <td>${product.categoria}</td>
                             <td>${product.stock}</td>
                             <td><button onclick="deleteProduct(${product.id})">Eliminar</button></td>
                         `;
