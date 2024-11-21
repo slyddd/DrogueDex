@@ -19,9 +19,9 @@
         
         <select id="id_rol" name="id_rol" class="input-field" required>
           <option value="" disabled selected>Seleccione un rol</option>
-          <option value="Administrador">Administrador</option>
-          <option value="Medico">Médico</option>
-          <option value="Paciente">Paciente</option>
+          <option value="1">Administrador</option>
+          <option value="2">Médico</option>
+          <option value="3">Paciente</option>
         </select>
       
         <button class="btn" type="submit">Crear Cuenta</button>
@@ -54,39 +54,32 @@
   submitButton.textContent = 'Registrando...';
 
   try {
-    // Opción 1: Enviar como FormData
-    const formData = new FormData();
-    formData.append('nombre', nombre);
-    formData.append('apellido', apellido);
-    formData.append('correo', correo);
-    formData.append('contraseña', contraseña);
-    formData.append('id_rol', id_rol);
-
     // Alternativa: Construir un objeto JSON
     const jsonData = {
       nombre,
       apellido,
       correo,
       contraseña,
-      id_rol
+      id_rol: parseInt(id_rol)
     };
 
     const useJSON = false; // Cambia a true si el backend requiere JSON
     const options = {
       method: 'POST',
       headers: useJSON ? { 'Content-Type': 'application/json' } : undefined,
-      body: useJSON ? JSON.stringify(jsonData) : formData
+      body: JSON.stringify(jsonData)
     };
 
     const response = await fetch('https://cienciadatos701.dcramirez.com/G2/api/auth/register/', options);
     const result = await response.json();
 
-    if (response.ok) {
-      Swal.fire('Éxito', result.message || 'Usuario registrado exitosamente.', 'success').then(() => {
+    if (result.status === 200) {
+      Swal.fire('Éxito', result.response || 'Usuario registrado exitosamente.', 'success').then(() => {
         window.location.href = 'welcome.html';
       });
     } else {
-      Swal.fire('Error', result.error || 'Ocurrió un error al registrar el usuario.', 'error');
+      console.log(jsonData);
+      Swal.fire('Error', result.response || 'Ocurrió un error al registrar el usuario.', 'error');
     }
   } catch (error) {
     Swal.fire('Error de red', error.message, 'error');
@@ -95,23 +88,6 @@
     submitButton.textContent = 'Crear Cuenta';
   }
 });
-
-<<<<<<< HEAD
-=======
-        if (result.status === 200) {
-          alert(result.status || 'Usuario registrado exitosamente.');
-          // window.location.href = 'welcome.html'; // Redirigir a welcome.html si el registro fue exitoso
-        } else {
-          alert(result.response + " " + JSON.stringify(FormData) || 'Ocurrió un error al registrar el usuario.');
-        }
-      } catch (error) {
-        alert('Error de red: ' + error.message); // Manejar errores de red
-      } finally {
-        submitButton.disabled = false; // Habilitar el botón nuevamente
-        submitButton.textContent = 'Crear Cuenta';
-      }
-    });
->>>>>>> ec146cf9a39dc9cd31c4f8eb2cf6efb4a2740666
   </script>
 </body>
 </html>
