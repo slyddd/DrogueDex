@@ -51,12 +51,12 @@
 
         const result = await response.json();
 
-        if (response.ok) {
+        if (result.status === 200) {
           // Si la respuesta es exitosa, redirigir al usuario a la página welcome.html
-          alert(result.message || 'Inicio de sesión exitoso');
+          alert(result.response || 'Inicio de sesión exitoso');
           window.location.href = './welcome.html';
         } else {
-          alert(result.error || 'Credenciales incorrectas');
+          alert(result.response || 'Credenciales incorrectas');
         }
       } catch (error) {
         alert('Error al intentar iniciar sesión: ' + error.message);
