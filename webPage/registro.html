@@ -25,37 +25,69 @@
             <th>Categoría</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Producto A</td>
-            <td>Descripción del Producto A</td>
-            <td>$100</td>
-            <td>50</td>
-            <td>Electrónica</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Producto B</td>
-            <td>Descripción del Producto B</td>
-            <td>$200</td>
-            <td>30</td>
-            <td>Hogar</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Producto C</td>
-            <td>Descripción del Producto C</td>
-            <td>$150</td>
-            <td>20</td>
-            <td>Ropa</td>
-          </tr>
+        <tbody id="productTableBody">
+          <!-- Las filas se llenarán aquí con JavaScript -->
         </tbody>
       </table>
     </section>
     <div class="back-button-section">
         <button class="back-button" onclick="window.location.href='./welcome.html'">Volver</button>
-      </div>
+    </div>
   </div>
+
+  <script>
+    // Función para obtener los productos de la API
+    async function fetchProducts() {
+      try {
+        // Realizar la solicitud fetch a la API
+        const response = await fetch('https://cienciadatos701.dcramirez.com/G2/api/product');
+        const products = await response.json(); // Suponiendo que la respuesta es un arreglo de productos
+
+        // Referencia al tbody donde se agregarán las filas
+        const tableBody = document.getElementById('productTableBody');
+
+        // Limpiar la tabla antes de agregar las nuevas filas
+        tableBody.innerHTML = '';
+
+        // Iterar sobre los productos y agregar una fila por cada uno
+        products.forEach(product => {
+          const row = document.createElement('tr'); // Crear una nueva fila
+
+          // Crear las celdas de la fila
+          const idCell = document.createElement('td');
+          idCell.textContent = product.id;
+          row.appendChild(idCell);
+
+          const nameCell = document.createElement('td');
+          nameCell.textContent = product.nombre;
+          row.appendChild(nameCell);
+
+          const descriptionCell = document.createElement('td');
+          descriptionCell.textContent = product.descripcion;
+          row.appendChild(descriptionCell);
+
+          const priceCell = document.createElement('td');
+          priceCell.textContent = `$${product.precio}`;
+          row.appendChild(priceCell);
+
+          const stockCell = document.createElement('td');
+          stockCell.textContent = product.stock;
+          row.appendChild(stockCell);
+
+          const categoryCell = document.createElement('td');
+          categoryCell.textContent = product.categoria;
+          row.appendChild(categoryCell);
+
+          // Agregar la fila al cuerpo de la tabla
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error al cargar los productos:', error);
+      }
+    }
+
+    // Llamar a la función para cargar los productos cuando la página se cargue
+    document.addEventListener('DOMContentLoaded', fetchProducts);
+  </script>
 </body>
 </html>
