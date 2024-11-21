@@ -10,9 +10,9 @@
 <body>
   <div class="container">
     <div class="form-section">
-      <input type="text" placeholder="Correo" class="input-field">
-      <input type="password" placeholder="Contraseña" class="input-field">
-      <button class="btn" onclick="window.location.href='./welcome.html'">Iniciar Sesión</button>
+      <input type="email" id="correo" placeholder="Correo" class="input-field" required>
+      <input type="password" id="contraseña" placeholder="Contraseña" class="input-field" required>
+      <button class="btn" id="loginButton">Iniciar Sesión</button>
       <span class="or-text">o</span>
       <a href="./login.html">Crear Cuenta</a>
     </div>
@@ -21,5 +21,47 @@
       <h1 class="logo-text">Droguedex</h1>
     </div>
   </div>
+
+  <script>
+    document.getElementById('loginButton').addEventListener('click', async function() {
+      // Obtener los valores de los campos
+      const correo = document.getElementById('correo').value.trim();
+      const contraseña = document.getElementById('contraseña').value.trim();
+
+      // Verificar que los campos no estén vacíos
+      if (!correo || !contraseña) {
+        alert("Por favor, ingresa tu correo y contraseña.");
+        return;
+      }
+
+      // Crear el objeto con los datos a enviar
+      const loginData = {
+        correo: correo,
+        contraseña: contraseña
+      };
+
+      try {
+        const response = await fetch('https://cienciadatos701.dcramirez.com/G2/api/auth/login/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loginData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Si la respuesta es exitosa, redirigir al usuario a la página welcome.html
+          alert(result.message || 'Inicio de sesión exitoso');
+          window.location.href = './welcome.html';
+        } else {
+          alert(result.error || 'Credenciales incorrectas');
+        }
+      } catch (error) {
+        alert('Error al intentar iniciar sesión: ' + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
