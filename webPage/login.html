@@ -15,13 +15,14 @@
         <input id="nombre" type="text" name="nombre" placeholder="Nombre" class="input-field" required>
         <input id="apellido" type="text" name="apellido" placeholder="Apellido" class="input-field" required>
         <input id="correo" type="email" name="correo" placeholder="Correo" class="input-field" required>
-        <input id="contraseña" type="password" name="contraseña" placeholder="Contraseña (mínimo 6 caracteres)" class="input-field" minlength="6" required>
+        <input id="contraseña" type="password" name="contraseña" placeholder="Contraseña" class="input-field" minlength="6" required>
         
         <select id="id_rol" name="id_rol" class="input-field" required>
           <option value="" disabled selected>Seleccione un rol</option>
           <option value="Administrador">Administrador</option>
           <option value="Medico">Médico</option>
-          <option value="Paciente">Paciente</option>
+          <option value="Enfermero">Enfermero</option>
+          <option value="Almacenista">Almacenista</option>
         </select>
       
         <button class="btn" type="submit">Crear Cuenta</button>
@@ -62,7 +63,7 @@
     formData.append('contraseña', contraseña);
     formData.append('id_rol', id_rol);
 
-    // Alternativa: Construir un objeto JSON
+   
     const jsonData = {
       nombre,
       apellido,
