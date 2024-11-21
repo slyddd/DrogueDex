@@ -37,7 +37,7 @@ class ProductController
     {
         try {
             $data = json_decode($product, true);
-            $id_provider = $data['id_proveedor'];
+            $id_provider = $data['productSupplier'];
 
             $is_error = $this->validateReqBody($data);
 
