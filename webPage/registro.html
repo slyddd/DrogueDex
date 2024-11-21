@@ -22,6 +22,7 @@
             <th>Descripción</th>
             <th>Precio</th>
             <th>Cantidad</th>
+            <th>Proveedor</th>
             <th>Categoría</th>
           </tr>
         </thead>
@@ -50,12 +51,12 @@
         tableBody.innerHTML = '';
 
         // Iterar sobre los productos y agregar una fila por cada uno
-        products.forEach(product => {
+        products.forEach((product, index) => {
           const row = document.createElement('tr'); // Crear una nueva fila
 
           // Crear las celdas de la fila
           const idCell = document.createElement('td');
-          idCell.textContent = product.id;
+          idCell.textContent = index + 1;  // Usamos el índice para ID
           row.appendChild(idCell);
 
           const nameCell = document.createElement('td');
@@ -73,6 +74,10 @@
           const stockCell = document.createElement('td');
           stockCell.textContent = product.stock;
           row.appendChild(stockCell);
+
+          const supplierCell = document.createElement('td');
+          supplierCell.textContent = product.proveedor;
+          row.appendChild(supplierCell);
 
           const categoryCell = document.createElement('td');
           categoryCell.textContent = product.categoria;
