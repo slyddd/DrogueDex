@@ -1,135 +1,64 @@
-// Simulando una base de datos local para almacenar los productos
-let productList = [];
-let editProductIndex = null; // Indice del producto a editar
-
-// Abre el modal para agregar un nuevo producto
+// Función para abrir el modal de agregar producto
 function openAddModal() {
-    document.getElementById('productModal').style.display = 'flex';
-    document.getElementById('productForm').reset(); // Resetea el formulario
-    document.getElementById('modalTitle').textContent = 'Agregar Producto'; // Cambiar título del modal
-    document.querySelector('.save-btn').textContent = 'Guardar'; // Cambiar texto del botón a "Guardar"
-    document.querySelector('.save-btn').setAttribute('onclick', 'saveProduct()'); // Asegurarse de que la función sea de guardar
-    editProductIndex = null; // Asegura que no haya un producto editado
+    // Limpia los campos del formulario
+    document.getElementById("productForm").reset();
+    // Cambia el título del modal
+    document.getElementById("modalTitle").textContent = "Agregar Producto";
+    // Muestra el modal
+    document.getElementById("productModal").style.display = "block";
 }
 
-// Cierra el modal
+// Función para cerrar el modal
 function closeModal() {
-    document.getElementById('productModal').style.display = 'none';
+    document.getElementById("productModal").style.display = "none";
 }
 
-// Guarda un producto (agregar o actualizar)
-function saveProduct() {
-    const name = document.getElementById('productName').value;
-    const type = document.getElementById('productType').value;
-    const stock = document.getElementById('productStock').value;
+// Función para guardar el producto
+async function saveProduct() {
+    // Capturamos los datos del formulario
+    const productName = document.getElementById("productName").value.trim();
+    const productType = document.getElementById("productType").value.trim();
+    const productStock = document.getElementById("productStock").value.trim();
+    const idCategoria = 1;  // Este valor puede cambiar dependiendo de la categoría
+    const idProveedor = 1;  // Este valor puede cambiar dependiendo del proveedor
 
-    // Validación de campos
-    if (!name || !type || !stock) {
-        alert("Por favor, completa todos los campos.");
+    // Validación para asegurarse que los campos no estén vacíos
+    if (!productName || !productType || !productStock) {
+        alert("Por favor, complete todos los campos.");
         return;
     }
 
-    // Si estamos editando, actualizamos el producto
-    if (editProductIndex !== null) {
-        productList[editProductIndex] = {
-            name: name,
-            type: type,
-            stock: parseInt(stock)
-        };
-
-        // Actualizamos la tabla
-        updateProductTable();
-        closeModal();
-        return;
-    }
-
-    // Si estamos agregando, guardamos el nuevo producto
-    const product = {
-        name: name,
-        type: type,
-        stock: parseInt(stock)
+    // Datos a enviar a la API
+    const productData = {
+        nombre: productName,
+        descripcion: productType,  // Usamos productType como descripción
+        precio: 0,  // Asignamos un precio por defecto, ya que no hay campo para ello en el formulario
+        stock: productStock,
+        id_categoria: idCategoria,
+        id_proveedor: idProveedor
     };
 
-    productList.push(product);
+    try {
+        // Enviamos los datos a la API usando fetch
+        const response = await fetch("https://cienciadatos701.dcramirez.com/G2/api/product", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(productData)
+        });
 
-    // Actualizamos la tabla con el nuevo producto
-    updateProductTable();
-    closeModal();
-}
-
-// Actualiza la tabla con los productos
-function updateProductTable() {
-    const tableBody = document.getElementById('productTable');
-    tableBody.innerHTML = ''; // Limpiar la tabla
-
-    productList.forEach((product, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${product.name}</td>
-            <td>${product.type}</td>
-            <td>${product.stock}</td>
-            <td>
-                <button onclick="editProduct(${index})">Editar</button>
-                <button onclick="deleteProduct(${index})">Eliminar</button>
-            </td>
-        `;
-        tableBody.appendChild(row);
-    });
-}
-
-// Editar producto
-function editProduct(index) {
-    // Cargar el producto en el formulario
-    const product = productList[index];
-    document.getElementById('productName').value = product.name;
-    document.getElementById('productType').value = product.type;
-    document.getElementById('productStock').value = product.stock;
-
-    // Cambiar el título y el texto del botón
-    document.getElementById('modalTitle').textContent = 'Editar Producto';
-    document.querySelector('.save-btn').textContent = 'Actualizar';
-    document.querySelector('.save-btn').setAttribute('onclick', `updateProduct(${index})`);
-
-    // Mostrar el modal
-    document.getElementById('productModal').style.display = 'flex';
-
-    // Guardar el índice del producto que se va a editar
-    editProductIndex = index;
-}
-
-// Actualizar producto
-function updateProduct(index) {
-    const name = document.getElementById('productName').value;
-    const type = document.getElementById('productType').value;
-    const stock = document.getElementById('productStock').value;
-
-    // Validación de campos
-    if (!name || !type || !stock) {
-        alert("Por favor, completa todos los campos.");
-        return;
-    }
-
-    // Actualizar el producto en el arreglo
-    productList[index] = {
-        name: name,
-        type: type,
-        stock: parseInt(stock)
-    };
-
-    // Actualizar la tabla con los datos modificados
-    updateProductTable();
-
-    // Cerrar el modal
-    closeModal();
-}
-
-// Eliminar producto
-function deleteProduct(index) {
-    // Confirmar eliminación
-    const confirmation = confirm("¿Estás seguro de que deseas eliminar este producto?");
-    if (confirmation) {
-        // Eliminar el producto
-        productList.splice(index, 1);
-        updateProductTable();
+        // Revisamos la respuesta de la API
+        const result = await response.json();
+        if (response.ok) {
+            alert("Producto agregado exitosamente.");
+            closeModal(); // Cierra el modal
+            // Aquí puedes agregar lógica para actualizar la tabla si es necesario
+        } else {
+            alert(`Error al agregar producto: ${result.message}`);
+        }
+    } catch (error) {
+        console.error("Error al conectar con la API", error);
+        alert("Error de red. No se pudo agregar el producto.");
     }
 }
