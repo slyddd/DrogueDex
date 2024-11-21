@@ -91,12 +91,12 @@ class ProductController
 
     private function validateReqBody(mixed $data) : ?Exception
     {
-        $name = $data['nombre'];
-        $description = $data['descripcion'];
-        $price = $data['precio'];
-        $stock = $data['stock'];
-        $id_provider = $data['id_proveedor'];
-        $id_category = $data['id_categoria'];
+        $name = $data['productName'];
+        $description = $data['productDescription'];
+        $price = $data['productPrice'];
+        $stock = $data['productStockk'];
+        $id_provider = $data['productCategory'];
+        $id_category = $data['productSupplier'];
 
         if (empty($name) | empty($description) | empty($price) | empty($stock) | empty($id_provider) | empty($id_category)) {
             return new Exception(ERRORS::_NO_INFO_);
